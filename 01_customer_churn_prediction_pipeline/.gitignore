@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+data/raw/*.csv
+data/raw/*.xlsx
+artifacts/
+logs/
+models/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+.DS_Store

@@ -1,0 +1,39 @@
+PROJECT: Customer Churn Prediction - End to End ML Pipeline
+
+what this is:
+This one is suppose to be my full ML pipeline project. I wanted one project that does more than training only and actually feels deployable.
+
+why i made it:
+- churn is easy to explain
+- it is a real business problem
+- it lets me show data prep, modeling and API in one place
+
+how it works:
+1. load IBM Telco churn csv
+2. split numeric and categorical columns
+3. run preprocessing
+4. train churn classifier
+5. validate it
+6. save model artifact
+7. score one customer from CLI
+8. score one customer from FastAPI
+9. show the result in a small dashboard UI
+
+step by step reading:
+1. config/model_config.json
+2. src/churn_pipeline/features.py
+3. src/churn_pipeline/training.py
+4. train.py
+5. src/churn_pipeline/inference.py
+6. src/churn_pipeline/api.py
+7. dashboard_ui/index.html
+8. app.py
+
+what to say:
+- i wanted one portfolio project that actually feels end to end
+- i kept the model simple first, because structure matters before chasing fancy models
+- later i can improve features, thresholding and maybe compare with xgboost/lightgbm
+
+dataset used now:
+- IBM Telco Customer Churn
+- raw file name is `WA_Fn-UseC_-Telco-Customer-Churn.csv`

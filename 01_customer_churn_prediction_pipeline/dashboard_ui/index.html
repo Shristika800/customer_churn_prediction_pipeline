@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChurnGuard Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <span class="brand-name">ChurnGuard</span>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Analysis</div>
+          <a class="nav-item active" href="#">Overview</a>
+          <a class="nav-item" href="#">At-Risk Customers</a>
+          <a class="nav-item" href="#">Predictions</a>
+          <a class="nav-item" href="#">Trends</a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">Actions</div>
+          <a class="nav-item" href="#">Campaigns</a>
+          <a class="nav-item" href="#">Retention Playbooks</a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-label">System</div>
+          <a class="nav-item" href="#">Model Settings</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <h1>Churn Overview</h1>
+            <p>Last updated: 3 minutes ago · Model v2.4</p>
+          </div>
+          <div class="topbar-actions">
+            <span class="pill">47 high-risk customers</span>
+            <button class="ghost-btn" id="exportButton">Export</button>
+            <button class="primary-btn" id="runPredictionButton">Run Prediction</button>
+          </div>
+        </header>
+
+        <section class="filters">
+          <button class="filter-chip active">30 days</button>
+          <button class="filter-chip">90 days</button>
+          <button class="filter-chip">12 months</button>
+          <button class="filter-chip">Custom</button>
+        </section>
+
+        <section class="kpi-grid">
+          <article class="kpi-card">
+            <span class="kpi-label">Churn rate</span>
+            <strong class="kpi-value danger" id="kpiChurnRate">4.2%</strong>
+            <span class="kpi-meta danger-soft">↑ 0.8% vs last month</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Customers at risk</span>
+            <strong class="kpi-value" id="kpiCustomersAtRisk">312</strong>
+            <span class="kpi-meta danger-soft">↑ 28 new this week</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Revenue at risk</span>
+            <strong class="kpi-value" id="kpiRevenueAtRisk">$94.3K</strong>
+            <span class="kpi-meta">Monthly recurring</span>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-label">Retention actions sent</span>
+            <strong class="kpi-value success" id="kpiRetentionActions">148</strong>
+            <span class="kpi-meta success-soft">↓ 14% churn in treated group</span>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <div class="table-card">
+            <div class="table-head">
+              <div>
+                <h2>At-risk customers</h2>
+                <p>Sorted by churn probability</p>
+              </div>
+              <button class="ghost-btn small">Filter</button>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Segment</th>
+                    <th>Risk score</th>
+                    <th>Churn prob.</th>
+                    <th>MRR</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="atRiskTableBody">
+                  <tr>
+                    <td><span class="avatar rose">SR</span> Sunita Reddy</td>
+                    <td>Enterprise</td>
+                    <td><span class="meter"><span style="width: 88%"></span></span></td>
+                    <td>88%</td>
+                    <td>$4,200</td>
+                    <td><span class="status high">High</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="avatar blue">JM</span> James Mitchell</td>
+                    <td>Growth</td>
+                    <td><span class="meter"><span style="width: 74%"></span></span></td>
+                    <td>74%</td>
+                    <td>$1,800</td>
+                    <td><span class="status high">High</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="avatar lavender">PL</span> Priya Lakhani</td>
+                    <td>Enterprise</td>
+                    <td><span class="meter"><span style="width: 71%"></span></span></td>
+                    <td>71%</td>
+                    <td>$6,100</td>
+                    <td><span class="status high">High</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="avatar green">TK</span> Tom Kwan</td>
+                    <td>Starter</td>
+                    <td><span class="meter"><span style="width: 53%"></span></span></td>
+                    <td>53%</td>
+                    <td>$320</td>
+                    <td><span class="status medium">Medium</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="avatar amber">AM</span> Anika Muller</td>
+                    <td>Growth</td>
+                    <td><span class="meter"><span style="width: 41%"></span></span></td>
+                    <td>41%</td>
+                    <td>$980</td>
+                    <td><span class="status medium">Medium</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="avatar sky">RN</span> Ravi Nair</td>
+                    <td>Enterprise</td>
+                    <td><span class="meter"><span style="width: 22%"></span></span></td>
+                    <td>22%</td>
+                    <td>$8,400</td>
+                    <td><span class="status low">Low</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="detail-card">
+            <div class="detail-top">
+              <div>
+                <h3>Sunita Reddy</h3>
+                <p>Enterprise · Business Pro</p>
+              </div>
+              <span class="status high">High risk</span>
+            </div>
+
+            <div class="drivers">
+              <h4>Top churn drivers</h4>
+              <div class="driver">
+                <span>Login frequency dropped</span>
+                <div class="driver-bar"><span class="red" style="width: 92%"></span></div>
+                <strong>92%</strong>
+              </div>
+              <div class="driver">
+                <span>Support tickets ↑</span>
+                <div class="driver-bar"><span class="red" style="width: 80%"></span></div>
+                <strong>80%</strong>
+              </div>
+              <div class="driver">
+                <span>Feature usage &lt; 20%</span>
+                <div class="driver-bar"><span class="amber-bar" style="width: 75%"></span></div>
+                <strong>75%</strong>
+              </div>
+              <div class="driver">
+                <span>No renewal intent signal</span>
+                <div class="driver-bar"><span class="amber-bar" style="width: 60%"></span></div>
+                <strong>60%</strong>
+              </div>
+            </div>
+
+            <div class="account-details">
+              <h4>Account details</h4>
+              <div class="detail-row"><span>Churn probability</span><strong>88%</strong></div>
+              <div class="detail-row"><span>Monthly revenue</span><strong>$4,200</strong></div>
+              <div class="detail-row"><span>Tenure</span><strong>14 months</strong></div>
+              <div class="detail-row"><span>Last active</span><strong>12 days ago</strong></div>
+            </div>
+
+            <div class="detail-actions">
+              <button class="primary-btn wide">Send retention offer</button>
+              <button class="ghost-btn wide">View history</button>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="predictionModal">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3>Run churn prediction</h3>
+          <button class="modal-close" id="closeModalButton">×</button>
+        </div>
+        <form id="predictionForm" class="prediction-form">
+          <div class="form-grid">
+            <label><span>customerID</span><input name="customerID" value="9999-DEMOX" required /></label>
+            <label>
+              <span>gender</span>
+              <select name="gender">
+                <option>Female</option>
+                <option>Male</option>
+              </select>
+            </label>
+            <label><span>SeniorCitizen</span><input name="SeniorCitizen" type="number" value="0" min="0" max="1" step="1" required /></label>
+            <label><span>Partner</span><select name="Partner"><option>Yes</option><option>No</option></select></label>
+            <label><span>Dependents</span><select name="Dependents"><option>No</option><option>Yes</option></select></label>
+            <label><span>tenure</span><input name="tenure" type="number" value="12" required /></label>
+            <label><span>PhoneService</span><select name="PhoneService"><option>Yes</option><option>No</option></select></label>
+            <label><span>MultipleLines</span><select name="MultipleLines"><option>No</option><option>Yes</option><option>No phone service</option></select></label>
+            <label><span>InternetService</span><select name="InternetService"><option>Fiber optic</option><option>DSL</option><option>No</option></select></label>
+            <label><span>OnlineSecurity</span><select name="OnlineSecurity"><option>No</option><option>Yes</option><option>No internet service</option></select></label>
+            <label><span>OnlineBackup</span><select name="OnlineBackup"><option>Yes</option><option>No</option><option>No internet service</option></select></label>
+            <label><span>DeviceProtection</span><select name="DeviceProtection"><option>No</option><option>Yes</option><option>No internet service</option></select></label>
+            <label><span>TechSupport</span><select name="TechSupport"><option>No</option><option>Yes</option><option>No internet service</option></select></label>
+            <label><span>StreamingTV</span><select name="StreamingTV"><option>Yes</option><option>No</option><option>No internet service</option></select></label>
+            <label><span>StreamingMovies</span><select name="StreamingMovies"><option>Yes</option><option>No</option><option>No internet service</option></select></label>
+            <label><span>Contract</span><select name="Contract"><option>Month-to-month</option><option>One year</option><option>Two year</option></select></label>
+            <label><span>PaperlessBilling</span><select name="PaperlessBilling"><option>Yes</option><option>No</option></select></label>
+            <label><span>PaymentMethod</span><select name="PaymentMethod"><option>Electronic check</option><option>Mailed check</option><option>Bank transfer (automatic)</option><option>Credit card (automatic)</option></select></label>
+            <label><span>MonthlyCharges</span><input name="MonthlyCharges" type="number" step="0.01" value="85.5" required /></label>
+            <label><span>TotalCharges</span><input name="TotalCharges" type="number" step="0.01" value="1026.0" required /></label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="ghost-btn" id="cancelModalButton">Cancel</button>
+            <button type="submit" class="primary-btn">Run prediction</button>
+          </div>
+        </form>
+        <div class="prediction-result hidden" id="predictionResult"></div>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

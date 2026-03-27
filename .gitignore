@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.DS_Store
+
+01_customer_churn_prediction_pipeline/.venv/
+01_customer_churn_prediction_pipeline/__pycache__/
+01_customer_churn_prediction_pipeline/artifacts/
+01_customer_churn_prediction_pipeline/data/raw/*.csv
+01_customer_churn_prediction_pipeline/data/raw/*.xlsx
+01_customer_churn_prediction_pipeline/models/
