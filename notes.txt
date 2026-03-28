@@ -1,0 +1,9 @@
+﻿# churn project
+
+still fixing stuff.
+
+- tried lgbm once, didnt beat this
+- scaler on age was broken in older file, left note to come back but this dataset doesnt even have age lol
+- ask sir abt deployment deadline
+- maybe smote later idk
+- maybe should rename xgb_model.pkl later because this one is rf rn
